@@ -10,12 +10,11 @@
 }
 
 \newcommand{\@personalinfo}{
-  Anand Deopurkar\\
-  Senior Lecturer \medskip \\
-  Mathematical Sciences Institute \medskip\\
-  +61 2 6125 4628 \\
-  \texttt{anand.deopurkar@anu.edu.au} \medskip\\
-  \today
+  Name\\
+  Position \medskip \\
+  Dept/College \medskip\\
+  Phone \\
+  Email
 }
 \newcommand{\@personalwidth}{2cm}
 \newcommand{\personalinfo}[2]{
@@ -24,7 +23,7 @@
 }
 
 \newcommand{\@buildinginfo}{
-  Hanna Neumann Building
+  Address/Building 
 }
 
 
@@ -37,13 +36,14 @@
 \ProcessOptions \relax
 
 \RequirePackage{graphicx}
+\RequirePackage[nocheck]{fancyhdr}
 \RequirePackage{tikz}
 \RequirePackage{helvet}
 \RequirePackage{xcolor}
 \RequirePackage{background}
-\RequirePackage{geometry}
+\RequirePackage[includeheadfoot]{geometry}
 
-\geometry{left=3.25cm, right=4cm, top=2cm, bottom=3cm}
+\geometry{lmargin=3.25cm, rmargin2.5cm, tmargin=0cm, bmargin=1cm, headheight=4cm, footskip=2cm}
 
 \definecolor{ANUgold}{HTML}{BE830E}
 \backgroundsetup{
@@ -56,24 +56,39 @@
   contents=\rule{\paperheight}{1pt}
 }
 
-\newcommand{\makeletterhead}{
-  \hspace{-2.5cm}
-  \begin{minipage}{\dimexpr\textwidth+5cm}
-    \begin{minipage}{0.3\textwidth}
-      \begin{tikzpicture}
-        \node[fill=white, inner ysep=3mm, inner xsep=0mm]
-        {\includegraphics[height=1.6cm]{ANU_logo.png}};
-      \end{tikzpicture}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.4\textwidth}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{
+  \fancyfoot[RL, LO]{The Australian National University}
+  \fancyfoot[C]{}
+  \fancyfoot[RO, LE]{\thepage}
+}
+
+\fancypagestyle{firstpagestyle}{
+  \fancyfoot[L]{\fontsize{10pt}{12pt}\selectfont \@buildinginfo\\The Australian National University}
+  \fancyfoot[C]{\fontsize{10pt}{12pt}\selectfont Canberra 2600, ACT, Australia\\CRICOS Provider No. 00120C}
+  \fancyheadoffset[L]{1.90cm}
+  \fancyhead[L]{
+    \begin{tikzpicture}
+      \node[fill=white, inner ysep=3mm, inner xsep=0mm]
+      {\includegraphics[height=1.6cm]{ANU_logo.png}};
+    \end{tikzpicture}
+    \vfill
+  }
+  \fancyhead[R]{
+    \begin{minipage}[b]{\@personalwidth}
       \fontsize{10pt}{12pt}\selectfont
       \@personalinfo
+      \vfill
     \end{minipage}
-  \end{minipage}
+  }
+}
 
-  \vspace{5em}
-  
+\newcommand{\makeletterhead}{
+  \thispagestyle{firstpagestyle}
+  \addtolength{\textheight}{3cm}%
+  \afterpage{
+    \global\advance\headheight by -3cm
+  }
 }
 
 \endinput
