@@ -8,13 +8,12 @@
 \DeclareOption{roman}{
   \renewcommand{\familydefault}{\rmdefault}
 }
-
 \newcommand{\@personalinfo}{
-  Name\\
-  Position \medskip \\
-  Dept/College \medskip\\
-  Phone \\
-  Email
+  Anand Deopurkar\\
+  Senior Lecturer \medskip \\
+  Mathematical Sciences Institute \medskip\\
+  +61 2 6125 4628 \\
+  \texttt{anand.deopurkar@anu.edu.au}\\
 }
 \newcommand{\@personalwidth}{2cm}
 \newcommand{\personalinfo}[2]{
@@ -23,9 +22,8 @@
 }
 
 \newcommand{\@buildinginfo}{
-  Address/Building 
+  Hanna Neumann Building
 }
-
 
 \newcommand{\buildinginfo}[1]{
   \renewcommand{\@buildinginfo}{#1}
@@ -42,8 +40,9 @@
 \RequirePackage{xcolor}
 \RequirePackage{background}
 \RequirePackage[includeheadfoot]{geometry}
+\RequirePackage{calc}
 
-\geometry{lmargin=3.25cm, rmargin2.5cm, tmargin=0cm, bmargin=1cm, headheight=4cm, footskip=2cm}
+\geometry{lmargin=3.25cm, rmargin=2.5cm, tmargin=0cm, bmargin=1cm, headheight=4cm, footskip=2cm}
 
 \definecolor{ANUgold}{HTML}{BE830E}
 \backgroundsetup{
