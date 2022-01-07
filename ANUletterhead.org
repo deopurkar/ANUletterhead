@@ -1,0 +1,141 @@
+# This file creates the README and sty files for the ANU letterhead.
+
+# Every style file needs the following declaration.
+
+#+begin_src latex :tangle "ANUletterhead.sty"
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ANUletterhead}[2021/10/15 ANU Letterhead]
+#+end_src
+
+To use the letterhead:
+ 1. Place ~ANUletterhead.sty~ and ~ANUlogo.png~ in a folder where tex can find them.
+    You can put it in the same folder as your tex file.
+    But it is better to put it in a universal place, so that you do not have to copy it over for every tex file.
+    Placing both files in a subfolder called ~ANUletterhead~ in the following folders should work:
+    1. Windows (TeXlive): ~C:\texlive\2016\texmf-dist\tex\latex\~.
+    2. Mac: ~~/Library/texmf/tex/latex/~.
+    3. Linux: ~~/texmf/tex/latex/~
+    
+ 2. Issue ~\usepackage{ANUletterhead}~ in your tex file.
+    By itself, this should create a left margin line in the ANU gold colour.
+
+ 3. The package takes an option of ~sans~ or ~roman~, which controls whether the font will be sans serif or serif.
+    #+begin_src latex :tangle "ANUletterhead.sty"
+\DeclareOption{sans}{
+  \renewcommand{\familydefault}{\sfdefault}
+}
+
+\DeclareOption{roman}{
+  \renewcommand{\familydefault}{\rmdefault}
+}
+#+end_src
+
+ 4. You probably want to adjust the personal information.
+    You can do it by directly editing the sty file, or by issuing the command ~\personalinfo~.
+    It takes two arguments.
+    The first is the information itself (which can include line breaks), and the second is the width of the information block.
+    For example,
+     #+begin_src latex
+       \personalinfo{
+         Anand Deopurkar\\
+         Senior Lecturer \medskip \\
+         Mathematical Sciences Institute \medskip\\
+         +61 2 6125 4628 \\
+         \texttt{anand.deopurkar@anu.edu.au}\\
+       }{5cm}
+     #+end_src
+     #+begin_src latex :tangle "ANUletterhead.sty"
+\newcommand{\@personalinfo}{
+  Anand Deopurkar\\
+  Senior Lecturer \medskip \\
+  Mathematical Sciences Institute \medskip\\
+  +61 2 6125 4628 \\
+  \texttt{anand.deopurkar@anu.edu.au}\\
+}
+\newcommand{\@personalwidth}{2cm}
+\newcommand{\personalinfo}[2]{
+  \renewcommand{\@personalinfo}{#1}
+  \renewcommand{\@personalwidth}{#2}
+}
+#+end_src
+
+ 5. You may want to adjust the building information.
+    Again, you can do it by directly editing the sty file, or by issuing the command ~\buildinginfo~.
+    This one only takes one argument (no width necessary).
+    
+    #+begin_src latex :tangle "ANUletterhead.sty"
+\newcommand{\@buildinginfo}{
+  Hanna Neumann Building
+}
+
+\newcommand{\buildinginfo}[1]{
+  \renewcommand{\@buildinginfo}{#1}
+}
+#+end_src
+
+By default, the package uses sans serif font.
+
+#+begin_src latex :tangle "ANUletterhead.sty"
+\ExecuteOptions{sans}
+#+end_src
+
+\ProcessOptions \relax
+  
+\RequirePackage{graphicx}
+\RequirePackage[nocheck]{fancyhdr}
+\RequirePackage{tikz}
+\RequirePackage{helvet}
+\RequirePackage{xcolor}
+\RequirePackage{background}
+\RequirePackage[includeheadfoot]{geometry}
+\RequirePackage{calc}
+
+\geometry{lmargin=3.25cm, rmargin=2.5cm, tmargin=0cm, bmargin=1cm, headheight=4cm, footskip=2cm}
+
+\definecolor{ANUgold}{HTML}{BE830E}
+\backgroundsetup{
+  pages=all,
+  angle=270,
+  color=ANUgold,
+  opacity=1,
+  scale=1,
+  vshift=-0.5*\paperwidth+2cm,
+  contents=\rule{\paperheight}{1pt}
+}
+
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{
+  \fancyfoot[RL, LO]{The Australian National University}
+  \fancyfoot[C]{}
+  \fancyfoot[RO, LE]{\thepage}
+}
+
+\fancypagestyle{firstpagestyle}{
+  \fancyfoot[L]{\fontsize{10pt}{12pt}\selectfont \@buildinginfo\\The Australian National University}
+  \fancyfoot[C]{\fontsize{10pt}{12pt}\selectfont Canberra 2600, ACT, Australia\\CRICOS Provider No. 00120C}
+  \fancyheadoffset[L]{1.90cm}
+  \fancyhead[L]{
+    \begin{tikzpicture}
+      \node[fill=white, inner ysep=3mm, inner xsep=0mm]
+      {\includegraphics[height=1.6cm]{ANU_logo.png}};
+    \end{tikzpicture}
+    \vfill
+  }
+  \fancyhead[R]{
+    \begin{minipage}[b]{\@personalwidth}
+      \fontsize{10pt}{12pt}\selectfont
+      \@personalinfo
+      \vfill
+    \end{minipage}
+  }
+}
+
+\newcommand{\makeletterhead}{
+  \thispagestyle{firstpagestyle}
+  \addtolength{\textheight}{3cm}%
+  \afterpage{
+    \global\advance\headheight by -3cm
+  }
+}
+
+\endinput
