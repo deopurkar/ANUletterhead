@@ -1,9 +1,5 @@
 # This file creates the sty file for the ANU letterhead.
 
-#+begin_src latex :tangle "ANUletterhead.sty"
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ANUletterhead}[2021/10/15 ANU Letterhead]
-#+end_src
 * How to use?
  0. See ~example.tex~ and ~example.pdf~ for an example.
  1. Place ~ANUletterhead.sty~ and ~ANUlogo.png~ in a folder where tex can find them.
@@ -18,15 +14,6 @@
 
  3. The package takes an option of ~sans~ or ~roman~, which controls whether the font will be sans serif or serif.
     By default, the package uses ~sans~.
-    #+begin_src latex :tangle "ANUletterhead.sty"
-\DeclareOption{sans}{
-  \renewcommand{\familydefault}{\sfdefault}
-}
-
-\DeclareOption{roman}{
-  \renewcommand{\familydefault}{\rmdefault}
-}
-#+end_src
 
  4. You probably want to adjust the personal information.
     You can do it by directly editing the sty file, or by issuing the command ~\personalinfo~.
@@ -42,7 +29,26 @@
          \texttt{anand.deopurkar@anu.edu.au}\\
        }{5cm}
      #+end_src
-     #+begin_src latex :tangle "ANUletterhead.sty"
+
+ 5. You may want to adjust the building information.
+    Again, you can do it by directly editing the sty file, or by issuing the command ~\buildinginfo~.
+    This one only takes one argument (no width necessary).
+
+* Troubleshooting
+- If LaTeX complains about the "nocheck" option for fancyhdr, or if your top margins from the second page onwards look funny, you probably do not have the latest version of the ~fancyhdr~ package.
+* Implementation    
+#+begin_src latex :tangle "ANUletterhead.sty"
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ANUletterhead}[2021/10/15 ANU Letterhead]
+
+\DeclareOption{sans}{
+  \renewcommand{\familydefault}{\sfdefault}
+}
+
+\DeclareOption{roman}{
+  \renewcommand{\familydefault}{\rmdefault}
+}
+
 \newcommand{\@personalinfo}{
   Anand Deopurkar\\
   Senior Lecturer \medskip \\
@@ -55,16 +61,7 @@
   \renewcommand{\@personalinfo}{#1}
   \renewcommand{\@personalwidth}{#2}
 }
-#+end_src
 
- 5. You may want to adjust the building information.
-    Again, you can do it by directly editing the sty file, or by issuing the command ~\buildinginfo~.
-    This one only takes one argument (no width necessary).
-
-* Troubleshooting
-- If LaTeX complains about the "nocheck" option for fancyhdr, or if your top margins from the second page onwards look funny, you probably do not have the latest version of the ~fancyhdr~ package.
-* Implementation    
-    #+begin_src latex :tangle "ANUletterhead.sty"
 \newcommand{\@buildinginfo}{
   Hanna Neumann Building
 }
@@ -72,10 +69,7 @@
 \newcommand{\buildinginfo}[1]{
   \renewcommand{\@buildinginfo}{#1}
 }
-#+end_src
 
-The rest is the actual implementation.
-#+begin_src latex :tangle "ANUletterhead.sty"
 \ExecuteOptions{sans}
 
 \ProcessOptions \relax
