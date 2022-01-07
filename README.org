@@ -11,8 +11,8 @@
     But it is better to put it in a universal place, so that you do not have to copy it over for every tex file.
     Placing both files in a subfolder called ~ANUletterhead~ in the following folders should work:
     1. Windows (TeXlive): ~C:\texlive\2016\texmf-dist\tex\latex\~.
-    2. Mac: ~\~/Library/texmf/tex/latex/~.
-    3. Linux: ~\~/texmf/tex/latex/~
+    2. Mac: ~\tilde/Library/texmf/tex/latex/~.
+    3. Linux: ~\tilde/texmf/tex/latex/~
     
  2. Issue ~\usepackage{ANUletterhead}~ in your tex file.
 
