@@ -12,7 +12,7 @@
     Placing both files in a subfolder called ~ANUletterhead~ in the following folders should work:
     1. Windows (TeXlive): C:\texlive\2016\texmf-dist\tex\latex\
     2. Mac: ~/Library/texmf/tex/latex/
-    3. Linux: ~\tilde/texmf/tex/latex/
+    3. Linux: ~/texmf/tex/latex/
     
  2. Issue ~\usepackage{ANUletterhead}~ in your tex file.
 
