@@ -1,13 +1,10 @@
-# This file creates the README and sty files for the ANU letterhead.
-
-# Every style file needs the following declaration.
+# This file creates the sty file for the ANU letterhead.
 
 #+begin_src latex :tangle "ANUletterhead.sty"
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{ANUletterhead}[2021/10/15 ANU Letterhead]
 #+end_src
-
-To use the letterhead:
+* How to use?
  1. Place ~ANUletterhead.sty~ and ~ANUlogo.png~ in a folder where tex can find them.
     You can put it in the same folder as your tex file.
     But it is better to put it in a universal place, so that you do not have to copy it over for every tex file.
@@ -17,9 +14,9 @@ To use the letterhead:
     3. Linux: ~~/texmf/tex/latex/~
     
  2. Issue ~\usepackage{ANUletterhead}~ in your tex file.
-    By itself, this should create a left margin line in the ANU gold colour.
 
  3. The package takes an option of ~sans~ or ~roman~, which controls whether the font will be sans serif or serif.
+    By default, the package uses ~sans~.
     #+begin_src latex :tangle "ANUletterhead.sty"
 \DeclareOption{sans}{
   \renewcommand{\familydefault}{\sfdefault}
@@ -62,7 +59,10 @@ To use the letterhead:
  5. You may want to adjust the building information.
     Again, you can do it by directly editing the sty file, or by issuing the command ~\buildinginfo~.
     This one only takes one argument (no width necessary).
-    
+
+* Troubleshooting
+- If LaTeX complains about the "nocheck" option for fancyhdr, or if your top margins from the second page onwards look funny, you probably do not have the latest version of the ~fancyhdr~ package.
+* Implementation    
     #+begin_src latex :tangle "ANUletterhead.sty"
 \newcommand{\@buildinginfo}{
   Hanna Neumann Building
@@ -73,11 +73,9 @@ To use the letterhead:
 }
 #+end_src
 
-By default, the package uses sans serif font.
-
+The rest is the actual implementation.
 #+begin_src latex :tangle "ANUletterhead.sty"
 \ExecuteOptions{sans}
-#+end_src
 
 \ProcessOptions \relax
   
@@ -130,7 +128,7 @@ By default, the package uses sans serif font.
   }
 }
 
-\newcommand{\makeletterhead}{
+\AtBeginDocument{
   \thispagestyle{firstpagestyle}
   \addtolength{\textheight}{3cm}%
   \afterpage{
@@ -139,3 +137,5 @@ By default, the package uses sans serif font.
 }
 
 \endinput
+#+end_src
+
