@@ -5,7 +5,7 @@
 \ProvidesPackage{ANUletterhead}[2021/10/15 ANU Letterhead]
 #+end_src
 * How to use?
- 0. [@0] See ~example.tex~ and ~example.pdf~ for an example.
+ 0. See ~example.tex~ and ~example.pdf~ for an example.
  1. Place ~ANUletterhead.sty~ and ~ANUlogo.png~ in a folder where tex can find them.
     You can put it in the same folder as your tex file.
     But it is better to put it in a universal place, so that you do not have to copy it over for every tex file.
