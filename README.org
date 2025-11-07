@@ -1,3 +1,43 @@
+# This file creates the sty file for the ANU letterhead.
+
+* How to use?
+ 0. See ~example.tex~ and ~example.pdf~ for an example.
+ 1. Place ~ANUletterhead.sty~ and ~ANUlogo.png~ in a folder where tex can find them.
+    You can put it in the same folder as your tex file.
+    But it is better to put it in a universal place, so that you do not have to copy it over for every tex file.
+    Placing both files in a subfolder called ~ANUletterhead~ in the following folders should work:
+    1. Windows (TeXlive): C:\texlive\2016\texmf-dist\tex\latex\
+    2. Mac: ~/Library/texmf/tex/latex/
+    3. Linux: ~/texmf/tex/latex/
+    
+ 2. Issue ~\usepackage{ANUletterhead}~ in your tex file.
+
+ 3. The package takes an option of ~sans~ or ~roman~, which controls whether the font will be sans serif or serif.
+    By default, the package uses ~sans~.
+
+ 4. You probably want to adjust the personal information.
+    You can do it by directly editing the sty file, or by issuing the command ~\personalinfo~.
+    It takes two arguments.
+    The first is the information itself (which can include line breaks), and the second is the width of the information block.
+    For example,
+     #+begin_src latex
+       \personalinfo{
+         Anand Deopurkar\\
+         Senior Lecturer \medskip \\
+         Mathematical Sciences Institute \medskip\\
+         +61 2 6125 4628 \\
+         \texttt{anand.deopurkar@anu.edu.au}\\
+       }{5cm}
+     #+end_src
+
+ 5. You may want to adjust the building information.
+    Again, you can do it by directly editing the sty file, or by issuing the command ~\buildinginfo~.
+    This one only takes one argument (no width necessary).
+
+* Troubleshooting
+- If LaTeX complains about the "nocheck" option for fancyhdr, or if your top margins from the second page onwards look funny, you probably do not have the latest version of the ~fancyhdr~ package.
+* Implementation    
+#+begin_src latex :tangle "ANUletterhead.sty"
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{ANUletterhead}[2021/10/15 ANU Letterhead]
 
@@ -14,10 +54,9 @@
   Senior Lecturer \medskip \\
   Mathematical Sciences Institute \medskip\\
   +61 2 6125 4628 \\
-  \texttt{anand.deopurkar@anu.edu.au} \medskip\\
-  \today
+  \texttt{anand.deopurkar@anu.edu.au}\\
 }
-\newcommand{\@personalwidth}{5cm}
+\newcommand{\@personalwidth}{2cm}
 \newcommand{\personalinfo}[2]{
   \renewcommand{\@personalinfo}{#1}
   \renewcommand{\@personalwidth}{#2}
@@ -42,6 +81,7 @@
 \RequirePackage{xcolor}
 \RequirePackage{background}
 \RequirePackage[includeheadfoot]{geometry}
+\RequirePackage{calc}
 
 \geometry{lmargin=3.25cm, rmargin=2.5cm, tmargin=0cm, bmargin=1cm, headheight=4cm, footskip=2cm}
 
@@ -79,7 +119,6 @@
       \fontsize{10pt}{12pt}\selectfont
       \@personalinfo
       \vfill
-      \today
     \end{minipage}
   }
 }
@@ -93,3 +132,5 @@
 }
 
 \endinput
+#+end_src
+
