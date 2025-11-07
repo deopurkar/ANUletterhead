@@ -8,14 +8,12 @@
 \DeclareOption{roman}{
   \renewcommand{\familydefault}{\rmdefault}
 }
-
 \newcommand{\@personalinfo}{
   Anand Deopurkar\\
   Senior Lecturer \medskip \\
   Mathematical Sciences Institute \medskip\\
   +61 2 6125 4628 \\
-  \texttt{anand.deopurkar@anu.edu.au} \medskip\\
-  \today
+  \texttt{anand.deopurkar@anu.edu.au}\\
 }
 \newcommand{\@personalwidth}{5cm}
 \newcommand{\personalinfo}[2]{
@@ -34,7 +32,7 @@
 \ExecuteOptions{sans}
 
 \ProcessOptions \relax
-  
+
 \RequirePackage{graphicx}
 \RequirePackage[nocheck]{fancyhdr}
 \RequirePackage{tikz}
@@ -84,7 +82,7 @@
   }
 }
 
-\AtBeginDocument{
+\newcommand{\makeletterhead}{
   \thispagestyle{firstpagestyle}
   \addtolength{\textheight}{3cm}%
   \afterpage{
